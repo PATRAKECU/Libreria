@@ -38,10 +38,25 @@ public abstract class Producto {
         stock--;
     }
 
+    /** Método sobrecargado que reduce el stock en la cantidad de unidades requerida, lanza IllegalStateException si no hay stock */
+    public void disminuirStock(int cantidad) {
+        if (cantidad <= 0) throw new IllegalArgumentException("Cantidad debe ser positiva");
+        if (stock < cantidad) throw new IllegalStateException("No hay suficiente stock disponible");
+        stock -= cantidad;
+    }
+
+    /** Incrementa el stock en la cantidad requerida */
+    public void incrementarStock(int cantidad) {
+        if (cantidad <= 0) throw new IllegalArgumentException("Cantidad debe ser positiva");
+        stock += cantidad;
+    }
+
     @Override
     public String toString() {
-        return String.format("%s [%d]: %s – %s (%d unidades)",
-                nombre, id, descripcion, precio, stock);
+        return String.format(
+                "%s [%d]\nDescripción: %s\nPrecio: $%.2f\nStock disponible: %d unidades",
+                nombre, id, descripcion, precio.doubleValue(), stock
+        );
     }
 }
 

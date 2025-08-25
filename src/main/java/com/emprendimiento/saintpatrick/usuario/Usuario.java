@@ -27,5 +27,13 @@ public class Usuario {
     public boolean autenticar(String pwd) {
         return this.contraseña.equals(pwd);
     }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "%s [%d]\nCorreo: %s",
+                nombre, id, correo
+        );
+    }
 }
 
