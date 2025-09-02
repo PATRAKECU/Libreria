@@ -28,12 +28,8 @@ public class Usuario {
         return this.contraseña.equals(pwd);
     }
 
-    @Override
-    public String toString() {
-        return String.format(
-                "%s [%d]\nCorreo: %s",
-                nombre, id, correo
-        );
+    public String mostrarPerfil() {
+        return String.format("Usuario: %s [%d]\nCorreo: %s", nombre, id, correo);
     }
 }
 

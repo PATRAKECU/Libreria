@@ -29,10 +29,11 @@ public class Cafe extends Producto {
 
 
     @Override
-    public String toString() {
+    public String mostrarDetalle() {
         return String.format(
-                "%s\nOrigen: %s\nTipo: %s\nPeso: %.1f g",
-                super.toString(), origen, tipo, pesoGramos
+                "Café: %s [%d]\nOrigen: %s\nTipo: %s\nPeso: %.1f g\nPrecio: $%.2f\nStock: %d unidades",
+                getNombre(), getId(), origen, tipo, pesoGramos,
+                getPrecio().doubleValue(), getStock()
         );
     }
 }

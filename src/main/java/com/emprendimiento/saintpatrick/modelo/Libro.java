@@ -28,10 +28,11 @@ public class Libro extends Producto {
     }
 
     @Override
-    public String toString() {
+    public String mostrarDetalle() {
         return String.format(
-                "%s\nAutor: %s\nEditorial: %s\nEstado: %s",
-                super.toString(), autor, editorial, estado
+                "Libro: %s [%d]\nAutor: %s\nEditorial: %s\nEstado: %s\nPrecio: $%.2f\nStock: %d unidades",
+                getNombre(), getId(), autor, editorial, estado,
+                getPrecio().doubleValue(), getStock()
         );
     }
 }

@@ -1,14 +1,17 @@
 package com.emprendimiento.saintpatrick.usuario;
 
+import com.emprendimiento.saintpatrick.carrito.Carrito;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Cliente extends Usuario {
     private List<Integer> historialCompras;   // IDs de pedidos
     private List<String> preferencias;        // Ej: géneros literarios
+    private Carrito carrito;
 
     public Cliente(int id, String nombre, String correo, String contraseña) {
         super(id, nombre, correo, contraseña);
+        this.carrito = new Carrito();
         this.historialCompras = new ArrayList<>();
         this.preferencias = new ArrayList<>();
     }
@@ -21,6 +24,10 @@ public class Cliente extends Usuario {
         return preferencias;
     }
 
+    public Carrito getCarrito() {
+        return carrito;
+    }
+
     public void agregarPreferencia(String genero) {
         preferencias.add(genero);
     }
@@ -30,12 +37,13 @@ public class Cliente extends Usuario {
     }
 
     @Override
-    public String toString() {
+    public String mostrarPerfil() {
         return String.format(
-                "%s\nCompras realizadas: %d\nPreferencias: %s",
-                super.toString(),
+                "Cliente: %s [%d]\nCorreo: %s\nPedidos realizados: %d\nProductos en carrito: %d",
+                getNombre(), getId(), getCorreo(),
                 historialCompras.size(),
-                preferencias.isEmpty() ? "Ninguna" : String.join(", ", preferencias)
+                carrito.getProductos().size()
         );
     }
+
 }

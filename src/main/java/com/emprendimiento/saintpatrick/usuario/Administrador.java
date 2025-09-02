@@ -23,7 +23,11 @@ public class Administrador extends Usuario {
     }
 
     @Override
-    public String toString() {
-        return super.toString() + "\nRol: Administrador";
+    public String mostrarPerfil() {
+        return String.format(
+                "Administrador: %s [%d]\nCorreo: %s\nPermisos: Gestión de productos, usuarios y pedidos",
+                getNombre(), getId(), getCorreo()
+        );
     }
+
 }

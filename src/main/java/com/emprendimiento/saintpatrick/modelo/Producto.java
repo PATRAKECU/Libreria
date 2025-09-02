@@ -51,12 +51,6 @@ public abstract class Producto {
         stock += cantidad;
     }
 
-    @Override
-    public String toString() {
-        return String.format(
-                "%s [%d]\nDescripción: %s\nPrecio: $%.2f\nStock disponible: %d unidades",
-                nombre, id, descripcion, precio.doubleValue(), stock
-        );
-    }
+    public abstract String mostrarDetalle();
 }
 

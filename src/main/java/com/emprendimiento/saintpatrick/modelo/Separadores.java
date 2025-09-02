@@ -17,15 +17,16 @@ public class Separadores extends Producto {
         return material;
     }
 
-    public String getDimensionesCm() {
+    public double getDimensionesCm() {
         return dimensionesCm;
     }
 
     @Override
-    public String toString() {
+    public String mostrarDetalle() {
         return String.format(
-                "%s\nMaterial: %s\nDimensiones: %s",
-                super.toString(), material, dimensionesCm
+                "Separador: %s [%d]\nMaterial: %s\nDimensiones: %.1f cm\nPrecio: $%.2f\nStock: %d unidades",
+                getNombre(), getId(), material, dimensionesCm,
+                getPrecio().doubleValue(), getStock()
         );
     }
 }

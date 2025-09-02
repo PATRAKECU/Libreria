@@ -22,6 +22,28 @@ public class Carrito {
         calcularTotal();
     }
 
+    /** Sobrecarga: agrega por ID (busca en catálogo simulado) */
+    public void agregarProducto(int id, List<Producto> catalogo) {
+        for (Producto p : catalogo) {
+            if (p.getId() == id) {
+                agregarProducto(p);
+                return;
+            }
+        }
+        throw new IllegalArgumentException("Producto con id " + id + " no encontrado");
+    }
+
+    /** Sobrecarga: crea y agrega un producto genérico por nombre y precio */
+    public void agregarProducto(String nombre, BigDecimal precio) {
+        Producto temporal = new Producto(0, nombre, "", precio, 1) {
+            @Override
+            public String mostrarDetalle() {
+                return String.format("%s – $%.2f", nombre, precio.doubleValue());
+            }
+        };
+        agregarProducto(temporal);
+    }
+
     //Método analizador para remover artículos del carrito
     public void removerProducto(Producto p) {
         productos.remove(p);
