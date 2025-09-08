@@ -10,7 +10,9 @@ public class Administrador extends Usuario {
     }
 
     public void gestionarStock(Producto p, int cantidad) {
-        // Lógica para añadir o quitar stock
+        if (p == null) throw new IllegalArgumentException("Producto no puede ser nulo");
+        if (cantidad == 0) throw new IllegalArgumentException("La cantidad no puede ser cero");
+
         if (cantidad > 0) {
             p.incrementarStock(cantidad);
         } else {
@@ -19,6 +21,10 @@ public class Administrador extends Usuario {
     }
 
     public void establecerPromocion(Producto p, BigDecimal nuevoPrecio) {
+        if (p == null) throw new IllegalArgumentException("Producto no puede ser nulo");
+        if (nuevoPrecio == null || nuevoPrecio.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new IllegalArgumentException("El precio debe ser mayor a cero");
+        }
         p.setPrecio(nuevoPrecio);
     }
 
@@ -29,5 +35,4 @@ public class Administrador extends Usuario {
                 getNombre(), getId(), getCorreo()
         );
     }
-
 }

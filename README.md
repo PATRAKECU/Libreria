@@ -17,23 +17,30 @@ El sistema simula el funcionamiento de una librería moderna, con gestión de us
 - usuario: Define la clase base Usuario y sus derivadas Cliente y Administrador, con métodos sobrescritos como mostrarPerfil().
 - carrito: Maneja la clase Carrito, con métodos sobrecargados para agregar productos por objeto, ID o datos sueltos.
 - app: Contiene el punto de entrada (main) y pruebas en consola para validar el comportamiento del sistema.
-2. **Constructores y getters/setters:** en todas las clases, con encapsulamiento selectivo para proteger la integridad de los objetos.
-3. **Métodos analíticos:** para agregar, remover y vaciar productos del carrito, además de calcular el total dinámico.
-4. **Herencia y especialización:**
-- Producto → Libro, Cafe, Separadores, Soportes
-- Usuario → Cliente, Administrador
 
-5. **Polimorfismo:**
-  Se implementa el método mostrarDetalle() en Producto como abstracto, y se sobrescribe en cada subclase para mostrar información específica.
-  También se aplica en Usuario mediante mostrarPerfil(), sobrescrito en Cliente y Administrador.
-6. **Sobrecarga de métodos:**
-  En Carrito, el método agregarProducto() se sobrecarga para aceptar:
-- Un objeto Producto
-- Un id y un catálogo simulado
-- Un nombre y precio para crear un producto temporal
-7. **Sobrescritura:**
-  Métodos como mostrarDetalle() y mostrarPerfil() se sobrescriben para personalizar la salida según el tipo de objeto.
+2. **Encapsulamiento en clases principales:** Se reforzó el encapsulamiento en las clases Producto, Usuario y Carrito:
+   - Todos los atributos fueron declarados como private.
+   - Se implementaron getters y setters públicos según necesidad.
+   - Se añadieron validaciones en los setters para proteger la integridad del sistema:
+   - Validación de formato de correo electrónico en Usuario.
+   - Validación de precios positivos y stock no negativo en Producto.
+   - Validación de precios en productos temporales en Carrito.
+    Estas medidas aseguran que los datos sensibles no puedan ser modificados de forma arbitraria y que el sistema mantenga coherencia en tiempo de ejecución.
 
+3. **Encapsulamiento en subclases de Uusario:** Se aplicó encapsulamiento y validación en las clases Cliente y Administrador:
+   - Todos los atributos fueron declarados como private.
+   - Se implementaron getters públicos para acceder a listas y objetos internos.
+   - Se añadieron validaciones en métodos públicos:
+   - En Cliente, se valida que las preferencias no estén vacías y que los IDs de pedidos sean positivos.
+   - En Administrador, se valida que los productos no sean nulos, que las cantidades sean distintas de cero, y que los precios sean positivos.
+
+4. **Encapsulamiento en subclases de Producto:** Se reforzó el encapsulamiento en las subclases Libro, Cafe, Separadores y Soportes:
+   - Todos los atributos fueron declarados como private.
+   - Se implementaron getters públicos para acceder a los datos.
+   - Se añadieron setters con validaciones para asegurar:
+   - Que los campos de texto no estén vacíos (autor, material, tipo, etc.).
+   - Que algunos atributos puedan tener únicamente entradas específicas (estado: usado o nuevo, tipo: en grano, soluble o molido, material: yeso, metal o madera, etc.)
+   - Que los valores numéricos como peso y dimensiones sean positivos.
 
 
 

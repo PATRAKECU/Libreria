@@ -1,6 +1,7 @@
 package com.emprendimiento.saintpatrick.modelo;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public class Soportes extends Producto {
     private String material;        // Ej: "madera", "metal"
@@ -19,6 +20,24 @@ public class Soportes extends Producto {
 
     public double getPeso() {
         return peso;
+    }
+
+    public void setMaterial(String material) {
+        if (material == null) throw new IllegalArgumentException("El material no puede ser nulo");
+
+        String limpio = material.trim().toLowerCase();
+        if (!List.of("yeso", "madera", "metal").contains(limpio)) {
+            throw new IllegalArgumentException("Material inválido: debe ser 'yeso', 'madera' o 'metal'");
+        }
+
+        this.material = limpio;
+    }
+
+    public void setPeso(double peso) {
+        if (peso <= 0) {
+            throw new IllegalArgumentException("El peso debe ser mayor a cero");
+        }
+        this.peso = peso;
     }
 
     @Override

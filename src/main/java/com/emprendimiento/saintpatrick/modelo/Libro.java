@@ -27,6 +27,31 @@ public class Libro extends Producto {
         return estado;
     }
 
+    public void setAutor(String autor) {
+        if (autor == null || autor.trim().isEmpty()) {
+            throw new IllegalArgumentException("El autor no puede estar vacío");
+        }
+        this.autor = autor.trim();
+    }
+
+    public void setEditorial(String editorial) {
+        if (editorial == null || editorial.trim().isEmpty()) {
+            throw new IllegalArgumentException("La editorial no puede estar vacía");
+        }
+        this.editorial = editorial.trim();
+    }
+
+    public void setEstado(String estado) {
+        if (estado == null) throw new IllegalArgumentException("El estado no puede ser nulo");
+
+        String limpio = estado.trim().toLowerCase();
+        if (!limpio.equals("nuevo") && !limpio.equals("usado")) {
+            throw new IllegalArgumentException("El estado debe ser 'nuevo' o 'usado'");
+        }
+
+        this.estado = limpio;
+    }
+
     @Override
     public String mostrarDetalle() {
         return String.format(

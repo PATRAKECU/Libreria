@@ -29,10 +29,16 @@ public class Cliente extends Usuario {
     }
 
     public void agregarPreferencia(String genero) {
-        preferencias.add(genero);
+        if (genero == null || genero.trim().isEmpty()) {
+            throw new IllegalArgumentException("La preferencia no puede estar vacía");
+        }
+        preferencias.add(genero.trim());
     }
 
     public void registrarCompra(int pedidoId) {
+        if (pedidoId <= 0) {
+            throw new IllegalArgumentException("El ID del pedido debe ser positivo");
+        }
         historialCompras.add(pedidoId);
     }
 
@@ -45,5 +51,4 @@ public class Cliente extends Usuario {
                 carrito.getProductos().size()
         );
     }
-
 }

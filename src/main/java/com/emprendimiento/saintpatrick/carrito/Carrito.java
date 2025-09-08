@@ -35,6 +35,9 @@ public class Carrito {
 
     /** Sobrecarga: crea y agrega un producto genérico por nombre y precio */
     public void agregarProducto(String nombre, BigDecimal precio) {
+        if (precio.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new IllegalArgumentException("El precio debe ser mayor a cero");
+        }
         Producto temporal = new Producto(0, nombre, "", precio, 1) {
             @Override
             public String mostrarDetalle() {

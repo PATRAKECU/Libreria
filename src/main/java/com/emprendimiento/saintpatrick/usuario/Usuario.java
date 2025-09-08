@@ -21,7 +21,12 @@ public class Usuario {
 
     //Métodos modificadores
     public void setNombre(String nombre) { this.nombre = nombre; }
-    public void setCorreo(String correo) { this.correo = correo; }
+    public void setCorreo(String correo) {
+        if (correo == null || !correo.matches("^[\\w.-]+@[\\w.-]+\\.\\w{2,}$")) {
+            throw new IllegalArgumentException("Correo electrónico inválido");
+        }
+        this.correo = correo;
+    }
 
     /** Para simplificar, se retorna true si la contraseña coincide */
     public boolean autenticar(String pwd) {

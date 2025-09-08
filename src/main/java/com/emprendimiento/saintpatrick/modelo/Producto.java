@@ -2,7 +2,7 @@ package com.emprendimiento.saintpatrick.modelo;
 
 import java.math.BigDecimal;
 
-public abstract class Producto {
+abstract public class Producto {
     private int id;
     private String nombre;
     private String descripcion;
@@ -29,8 +29,18 @@ public abstract class Producto {
     //Métodos modificadores
     public void setNombre(String nombre) { this.nombre = nombre; }
     public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
-    public void setPrecio(BigDecimal precio) { this.precio = precio; }
-    public void setStock(int stock) { this.stock = stock; }
+    public void setPrecio(BigDecimal precio) {
+        if (precio == null || precio.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new IllegalArgumentException("El precio debe ser mayor a cero");
+        }
+        this.precio = precio;
+    }
+    public void setStock(int stock) {
+        if (stock < 0) {
+            throw new IllegalArgumentException("El stock no puede ser negativo");
+        }
+        this.stock = stock;
+    }
 
     /** Reduce el stock en 1 unidad, lanza IllegalStateException si no hay stock */
     public void disminuirStock() {
@@ -51,6 +61,6 @@ public abstract class Producto {
         stock += cantidad;
     }
 
-    public abstract String mostrarDetalle();
+    abstract public String mostrarDetalle();
 }
 
