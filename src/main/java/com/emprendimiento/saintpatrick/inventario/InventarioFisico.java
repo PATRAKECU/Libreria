@@ -1,11 +1,8 @@
 package com.emprendimiento.saintpatrick.inventario;
 
 import com.emprendimiento.saintpatrick.modelo.Producto;
-import java.util.ArrayList;
-import java.util.List;
 
 public class InventarioFisico extends GestorInventario {
-    private List<Producto> inventario = new ArrayList<>();
 
     @Override
     public void añadirProducto(Producto p) {

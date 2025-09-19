@@ -1,27 +1,39 @@
 package com.emprendimiento.saintpatrick.app;
 
-import com.emprendimiento.saintpatrick.modelo.Libro;
-import com.emprendimiento.saintpatrick.modelo.Producto;
-import com.emprendimiento.saintpatrick.usuario.Cliente;
+import com.emprendimiento.saintpatrick.carrito.Carrito;
+import com.emprendimiento.saintpatrick.modelo.Cafe;
+import com.emprendimiento.saintpatrick.pago.PagoTarjeta;
+import com.emprendimiento.saintpatrick.pago.ProcesoPago;
+
 import java.math.BigDecimal;
 
 public class LibreriaApp {
-
     public static void main(String[] args) {
-        // Crear producto
-        Producto libro = new Libro(1, "El Principito", "Clásico", new BigDecimal("12.99"), 10,
-                "Saint-Exupéry", "Porrua", "nuevo");
+        // 1. Crear productos
+        Cafe cafeColombiano = new Cafe(
+                101, "Café Colombiano", "Intenso y aromático",
+                new BigDecimal("7.50"), 10,
+                "Colombia", "molido", 250.0
+        );
 
-        // Crear cliente
-        Cliente cliente = new Cliente(101, "Patricio", "pato@mail.com", "1234");
+        // 2. Crear carrito y agregar producto
+        Carrito carrito = new Carrito();
+        carrito.agregarProducto(cafeColombiano);
 
-        // Agregar producto al carrito
-        cliente.getCarrito().agregarProducto(libro);
+        // 3. Mostrar total
+        BigDecimal total = carrito.getTotal();
+        System.out.println("Total a pagar: $" + total);
 
-        // Registrar una compra simulada
-        cliente.registrarCompra(1001); // ID ficticio de pedido
+        // 4. Iniciar proceso de pago
+        ProcesoPago pago = new PagoTarjeta();
+        boolean iniciado = pago.iniciarPago(total);
 
-        // Mostrar perfil del cliente
-        System.out.println(cliente.mostrarPerfil());
+        if (iniciado && pago.verificarPago()) {
+            pago.confirmarPago();
+            carrito.vaciarCarrito();
+            System.out.println("Pago confirmado. Carrito vaciado.");
+        } else {
+            System.out.println("Error en el proceso de pago.");
+        }
     }
 }

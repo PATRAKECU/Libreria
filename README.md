@@ -71,11 +71,14 @@ El sistema simula el funcionamiento de una librería moderna, con gestión de us
   Se añadió el atributo carrito a la clase Cliente, permitiendo simular compras, calcular totales y mostrar productos en el perfil.
 - Interfaces:
 Se implementaron interfaces como GestorCarrito y ProcesoPago para encapsular los métodos a clases concretas y reducir el acoplamiento.
+- Visibilidad:
+Se optó por cambiar la visibilidad del atributo de la clase abstracta GestorInventario para que pueda ser manipulado por sus subclases.
 
 ## Capturas de pantalla
 ![Carrito](docs/carrito.png)  
-![Diagrama UML](docs/uml.jpg)
+![Diagrama UML](docs/clases.jpg)
 ![Prueba de Visualización](docs/prueba1.png)
 ![Atributos de Cliente Ficticio](docs/pruebaCliente.png)
 ![Atributos de Productos Ficticios](docs/pruebaProductos.png)
+![Prototipo de proceso de pago](docs/pago.png)
 ---

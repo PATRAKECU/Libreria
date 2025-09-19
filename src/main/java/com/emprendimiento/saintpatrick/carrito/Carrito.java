@@ -11,7 +11,7 @@ public class Carrito implements GestorCarrito {
     private List<Producto> productos;
     private BigDecimal total;
 
-    //Método constructor con parámetros y atributos
+    //Método constructor con atributos
     public Carrito() {
         productos = new ArrayList<>();
         total = BigDecimal.ZERO;

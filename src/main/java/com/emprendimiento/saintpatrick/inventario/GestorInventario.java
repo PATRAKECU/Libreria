@@ -6,10 +6,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class GestorInventario {
-    private List<Producto> productos;
+    protected List<Producto> inventario;
 
     public GestorInventario() {
-        this.productos = new ArrayList<>();
+        this.inventario = new ArrayList<>();
+    }
+
+    protected List<Producto> getInventario() {
+        return inventario;
     }
 
     public abstract void añadirProducto(Producto p);
