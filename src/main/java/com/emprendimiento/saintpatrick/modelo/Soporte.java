@@ -3,12 +3,12 @@ package com.emprendimiento.saintpatrick.modelo;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class Soportes extends Producto {
+public class Soporte extends Producto {
     private String material;        // Ej: "madera", "metal"
     private double peso;  // Peso aproximado en libras
 
-    public Soportes(int id, String nombre, String descripcion, BigDecimal precio, int stock,
-                    String material, double peso) {
+    public Soporte(int id, String nombre, String descripcion, BigDecimal precio, int stock,
+                   String material, double peso) {
         super(id, nombre, descripcion, precio, stock);
         this.material = material;
         this.peso = peso;

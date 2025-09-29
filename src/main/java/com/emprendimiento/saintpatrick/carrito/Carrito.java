@@ -78,6 +78,28 @@ public class Carrito implements GestorCarrito {
         total = suma;
     }
 
+    public boolean esVacio() {
+        return productos.isEmpty();
+    }
+
+    public String generarResumen() {
+        if (esVacio()) {
+            return "El carrito está vacío.";
+        }
+
+        StringBuilder resumen = new StringBuilder("Resumen del carrito:\n");
+        for (Producto p : productos) {
+            resumen.append("- ")
+                    .append(p.getNombre())
+                    .append(" ($")
+                    .append(p.getPrecio())
+                    .append(")\n");
+        }
+
+        resumen.append(String.format("Total: $%.2f", total));
+        return resumen.toString();
+    }
+
     //Métodos consultores para obtener atributos específicos
     @Override
     public BigDecimal getTotal() {

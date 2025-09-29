@@ -1,39 +1,41 @@
 package com.emprendimiento.saintpatrick.app;
 
-import com.emprendimiento.saintpatrick.carrito.Carrito;
-import com.emprendimiento.saintpatrick.modelo.Cafe;
-import com.emprendimiento.saintpatrick.pago.PagoTarjeta;
-import com.emprendimiento.saintpatrick.pago.ProcesoPago;
+import com.emprendimiento.saintpatrick.excepciones.CarritoVacio;
+import com.emprendimiento.saintpatrick.excepciones.InventarioInsuficiente;
+import com.emprendimiento.saintpatrick.excepciones.PagoFallido;
+import com.emprendimiento.saintpatrick.excepciones.UsuarioNoAutenticado;
+import com.emprendimiento.saintpatrick.fabrica.*;
+
+import com.emprendimiento.saintpatrick.modelo.Libro;
+import com.emprendimiento.saintpatrick.modelo.Producto;
+import com.emprendimiento.saintpatrick.notificaciones.*;
+import com.emprendimiento.saintpatrick.pedidos.GestorPedidos;
+import com.emprendimiento.saintpatrick.pedidos.Pedido;
+import com.emprendimiento.saintpatrick.usuario.Cliente;
 
 import java.math.BigDecimal;
 
+
 public class LibreriaApp {
     public static void main(String[] args) {
-        // 1. Crear productos
-        Cafe cafeColombiano = new Cafe(
-                101, "Café Colombiano", "Intenso y aromático",
-                new BigDecimal("7.50"), 10,
-                "Colombia", "molido", 250.0
-        );
+        Cliente cliente = new Cliente(1, "Patricio", "correo@email.com", "clave123");
+        GestorPedidos gestor = new GestorPedidos();
 
-        // 2. Crear carrito y agregar producto
-        Carrito carrito = new Carrito();
-        carrito.agregarProducto(cafeColombiano);
+        try {
+            boolean autenticado = cliente.iniciarSesion("correo@email.com", "clave124");
 
-        // 3. Mostrar total
-        BigDecimal total = carrito.getTotal();
-        System.out.println("Total a pagar: $" + total);
+            if (!autenticado) {
+                throw new UsuarioNoAutenticado("Debes iniciar sesión para confirmar tu pedido.");
+            }
 
-        // 4. Iniciar proceso de pago
-        ProcesoPago pago = new PagoTarjeta();
-        boolean iniciado = pago.iniciarPago(total);
-
-        if (iniciado && pago.verificarPago()) {
-            pago.confirmarPago();
-            carrito.vaciarCarrito();
-            System.out.println("Pago confirmado. Carrito vaciado.");
-        } else {
-            System.out.println("Error en el proceso de pago.");
+            Pedido pedido = gestor.confirmarPedido(cliente);
+            System.out.println("Pedido confirmado: " + pedido);
+        } catch (UsuarioNoAutenticado e) {
+            System.out.println("Acceso denegado: " + e.getMessage());
+            System.out.println("Redirigiendo al login...");
+        } catch (CarritoVacio e) {
+            System.out.println("Tu carrito está vacío. ¿Deseas explorar el catálogo?");
         }
+
     }
 }

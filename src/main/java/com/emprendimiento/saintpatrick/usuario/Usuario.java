@@ -1,5 +1,9 @@
 package com.emprendimiento.saintpatrick.usuario;
 
+import com.emprendimiento.saintpatrick.excepciones.CorreoInvalido;
+import com.emprendimiento.saintpatrick.excepciones.DatosInvalidos;
+import com.emprendimiento.saintpatrick.excepciones.UsuarioNoAutenticado;
+
 public class Usuario {
     private int id;
     private String nombre;
@@ -20,17 +24,25 @@ public class Usuario {
     public String getCorreo() { return correo; }
 
     //Métodos modificadores
-    public void setNombre(String nombre) { this.nombre = nombre; }
+    public void setNombre(String nombre) {
+        if (nombre == null || nombre.trim().isEmpty()) {
+            throw new DatosInvalidos("El nombre no puede estar vacío");
+        }
+        this.nombre = nombre;
+    }
     public void setCorreo(String correo) {
         if (correo == null || !correo.matches("^[\\w.-]+@[\\w.-]+\\.\\w{2,}$")) {
-            throw new IllegalArgumentException("Correo electrónico inválido");
+            throw new CorreoInvalido("Formato de correo inválido: " + correo);
         }
         this.correo = correo;
     }
 
-    /** Para simplificar, se retorna true si la contraseña coincide */
-    public boolean autenticar(String pwd) {
-        return this.contraseña.equals(pwd);
+    /** Para simplificar, se retorna true si la contraseña y correo coinciden */
+    public boolean iniciarSesion(String correo, String contraseña) {
+        if (!this.correo.equals(correo) || !this.contraseña.equals(contraseña)) {
+            throw new UsuarioNoAutenticado("Credenciales inválidas. Verifica tu correo y contraseña.");
+        }
+        return true;
     }
 
     public String mostrarPerfil() {

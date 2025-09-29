@@ -1,5 +1,7 @@
 package com.emprendimiento.saintpatrick.modelo;
 
+import com.emprendimiento.saintpatrick.excepciones.InventarioInsuficiente;
+
 import java.math.BigDecimal;
 
 abstract public class Producto {
@@ -51,7 +53,9 @@ abstract public class Producto {
     /** Método sobrecargado que reduce el stock en la cantidad de unidades requerida, lanza IllegalStateException si no hay stock */
     public void disminuirStock(int cantidad) {
         if (cantidad <= 0) throw new IllegalArgumentException("Cantidad debe ser positiva");
-        if (stock < cantidad) throw new IllegalStateException("No hay suficiente stock disponible");
+        if (cantidad > stock) {
+            throw new InventarioInsuficiente("Stock insuficiente para el producto: " + nombre);
+        }
         stock -= cantidad;
     }
 

@@ -1,11 +1,13 @@
 package com.emprendimiento.saintpatrick.usuario;
 
 import com.emprendimiento.saintpatrick.carrito.Carrito;
+import com.emprendimiento.saintpatrick.pedidos.Pedido;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Cliente extends Usuario {
-    private List<Integer> historialCompras;   // IDs de pedidos
+    private List<Pedido> historialCompras;   // IDs de pedidos
     private List<String> preferencias;        // Ej: géneros literarios
     private Carrito carrito;
 
@@ -16,7 +18,7 @@ public class Cliente extends Usuario {
         this.preferencias = new ArrayList<>();
     }
 
-    public List<Integer> getHistorialCompras() {
+    public List<Pedido> getHistorialCompras() {
         return historialCompras;
     }
 
@@ -35,11 +37,11 @@ public class Cliente extends Usuario {
         preferencias.add(genero.trim());
     }
 
-    public void registrarCompra(int pedidoId) {
-        if (pedidoId <= 0) {
-            throw new IllegalArgumentException("El ID del pedido debe ser positivo");
+    public void registrarCompra(Pedido pedido) {
+        if (pedido == null) {
+            throw new IllegalArgumentException("El pedido no puede ser nulo");
         }
-        historialCompras.add(pedidoId);
+        historialCompras.add(pedido);
     }
 
     @Override

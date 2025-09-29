@@ -3,12 +3,12 @@ package com.emprendimiento.saintpatrick.modelo;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class Separadores extends Producto {
+public class Separador extends Producto {
     private String material;    // Ej: "cartón", "plástico"
     private double dimensionesCm;    //Tamaño en cm
 
-    public Separadores(int id, String nombre, String descripcion, BigDecimal precio, int stock,
-                       String material, double dimensionesCm) {
+    public Separador(int id, String nombre, String descripcion, BigDecimal precio, int stock,
+                     String material, double dimensionesCm) {
         super(id, nombre, descripcion, precio, stock);
         this.material = material;
         this.dimensionesCm = dimensionesCm;

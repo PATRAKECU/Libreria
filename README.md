@@ -23,6 +23,8 @@ El sistema simula el funcionamiento de una librería moderna, con gestión de us
   Incluye la clase abstracta GestorInventario y su implementación GestorInventarioFisico, encargada de añadir, eliminar y actualizar productos en el catálogo físico.
 - **pago:**
   Define la interfaz ProcesoPago y sus implementaciones PagoTarjeta y PagoPayPal, simulando el flujo de validación, verificación y confirmación de pagos.
+- **pedidos:**
+  Define la clase GestorPedidos, la cual interactúa con Carrito y proporciona la funcionalidad de realizar pedidos en la plataforma ecommerce. También se incluye Pedido con todos sus atributos y únicamente getters en este caso, ya que se espera que los atributos de esta clase se mantengan invariables.
 - **app:**
   Contiene el punto de entrada (main) y pruebas en consola para validar el comportamiento del sistema.
 
@@ -59,6 +61,17 @@ El sistema simula el funcionamiento de una librería moderna, con gestión de us
   Define las operaciones del carrito de compras.
   La clase Carrito implementa esta interfaz, separando la lógica de compra del inventario general.
 
+6. 🧠 Patrones de Diseño Implementados
+- Factory Method (Fábrica):
+  Las clases FabricaProducto y FabricaUsuario encapsulan la lógica de creación de objetos complejos (Libro, Cafe, Cliente, Administrador) a partir de estructuras de datos (DatosLibro, DatosUsuario, etc.).
+  Se validan atributos antes de instanciar, garantizando integridad y extensibilidad.
+- Observer (Observador):
+  El sistema de notificaciones (GestorEventos, NotificadorEmail, NotificadorUI, etc.) aplica el patrón Observer.
+  Los observadores se registran en un Sujeto y reaccionan automáticamente ante eventos como confirmación de pedido o actualización de stock
+- Singleton (Instancia Única):
+  ConfiguracionSistema se implementa como Singleton para garantizar una única instancia de configuración compartida en todo el sistema
+
+
 ⚙️ Desafíos y Resoluciones
 - Gestión de stock:
   Se implementaron incrementarStock(int) y disminuirStock(int) en Producto, con validaciones y excepciones.
@@ -73,6 +86,7 @@ El sistema simula el funcionamiento de una librería moderna, con gestión de us
 Se implementaron interfaces como GestorCarrito y ProcesoPago para encapsular los métodos a clases concretas y reducir el acoplamiento.
 - Visibilidad:
 Se optó por cambiar la visibilidad del atributo de la clase abstracta GestorInventario para que pueda ser manipulado por sus subclases.
+- Archivos para fabricar productos y usuarios: Se crearon archivos que contienen atributos de las subclases del modelo de negocio para aislar la lógica de negocio y fabricar productos y usuarios con validación previa.
 
 ## Capturas de pantalla
 ![Carrito](docs/carrito.png)  
@@ -81,4 +95,7 @@ Se optó por cambiar la visibilidad del atributo de la clase abstracta GestorInv
 ![Atributos de Cliente Ficticio](docs/pruebaCliente.png)
 ![Atributos de Productos Ficticios](docs/pruebaProductos.png)
 ![Prototipo de proceso de pago](docs/pago.png)
+![Código para fabricar productos](docs/MainFabrica.png)
+![Resultado de fabricar productos](docs/FabricaProductos.png)
+![Fábrica de Usuarios](docs/FabricaUsuarios.png)
 ---
