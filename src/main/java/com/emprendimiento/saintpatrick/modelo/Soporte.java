@@ -42,7 +42,7 @@ public class Soporte extends Producto {
 
     @Override
     public String mostrarDetalle() {
-        return String.format(
+        return String.format(java.util.Locale.US,
                 "Soporte: %s [%d]\nMaterial: %s\nPeso: %.1f lbs.\nPrecio: $%.2f\nStock: %d unidades",
                 getNombre(), getId(), material, peso,
                 getPrecio().doubleValue(), getStock()

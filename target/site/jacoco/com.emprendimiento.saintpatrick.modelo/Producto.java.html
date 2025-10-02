@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Producto.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">libreria</a> &gt; <a href="index.source.html" class="el_package">com.emprendimiento.saintpatrick.modelo</a> &gt; <span class="el_source">Producto.java</span></div><h1>Producto.java</h1><pre class="source lang-java linenums">package com.emprendimiento.saintpatrick.modelo;
+
+import com.emprendimiento.saintpatrick.excepciones.InventarioInsuficiente;
+
+import java.math.BigDecimal;
+
+abstract public class Producto {
+    private int id;
+    private String nombre;
+    private String descripcion;
+    private BigDecimal precio;
+    private int stock;
+
+    //Método constructor con parámetros y atributos
+    public Producto(int id, String nombre, String descripcion,
+<span class="fc" id="L16">                    BigDecimal precio, int stock) {</span>
+<span class="fc" id="L17">        this.id = id;</span>
+<span class="fc" id="L18">        this.nombre = nombre;</span>
+<span class="fc" id="L19">        this.descripcion = descripcion;</span>
+<span class="fc" id="L20">        this.precio = precio;</span>
+<span class="fc" id="L21">        this.stock = stock;</span>
+<span class="fc" id="L22">    }</span>
+
+    //Métodos consultores
+<span class="fc" id="L25">    public int getId() { return id; }</span>
+<span class="fc" id="L26">    public String getNombre() { return nombre; }</span>
+<span class="nc" id="L27">    public String getDescripcion() { return descripcion; }</span>
+<span class="fc" id="L28">    public BigDecimal getPrecio() { return precio; }</span>
+<span class="fc" id="L29">    public int getStock() { return stock; }</span>
+
+    //Métodos modificadores
+<span class="nc" id="L32">    public void setNombre(String nombre) { this.nombre = nombre; }</span>
+<span class="nc" id="L33">    public void setDescripcion(String descripcion) { this.descripcion = descripcion; }</span>
+    public void setPrecio(BigDecimal precio) {
+<span class="fc bfc" id="L35" title="All 4 branches covered.">        if (precio == null || precio.compareTo(BigDecimal.ZERO) &lt;= 0) {</span>
+<span class="fc" id="L36">            throw new IllegalArgumentException(&quot;El precio debe ser mayor a cero&quot;);</span>
+        }
+<span class="fc" id="L38">        this.precio = precio;</span>
+<span class="fc" id="L39">    }</span>
+    public void setStock(int stock) {
+<span class="fc bfc" id="L41" title="All 2 branches covered.">        if (stock &lt; 0) {</span>
+<span class="fc" id="L42">            throw new IllegalArgumentException(&quot;El stock no puede ser negativo&quot;);</span>
+        }
+<span class="fc" id="L44">        this.stock = stock;</span>
+<span class="fc" id="L45">    }</span>
+
+    /** Reduce el stock en 1 unidad, lanza IllegalStateException si no hay stock */
+    public void disminuirStock() {
+<span class="pc bpc" id="L49" title="1 of 2 branches missed.">        if (stock &lt;= 0) throw new IllegalStateException(&quot;Sin stock disponible&quot;);</span>
+<span class="nc" id="L50">        stock--;</span>
+<span class="nc" id="L51">    }</span>
+
+    /** Método sobrecargado que reduce el stock en la cantidad de unidades requerida, lanza IllegalStateException si no hay stock */
+    public void disminuirStock(int cantidad) {
+<span class="fc bfc" id="L55" title="All 2 branches covered.">        if (cantidad &lt;= 0) throw new IllegalArgumentException(&quot;Cantidad debe ser positiva&quot;);</span>
+<span class="fc bfc" id="L56" title="All 2 branches covered.">        if (cantidad &gt; stock) {</span>
+<span class="fc" id="L57">            throw new InventarioInsuficiente(&quot;Stock insuficiente para el producto: &quot; + nombre);</span>
+        }
+<span class="fc" id="L59">        stock -= cantidad;</span>
+<span class="fc" id="L60">    }</span>
+
+    /** Incrementa el stock en la cantidad requerida */
+    public void incrementarStock(int cantidad) {
+<span class="fc bfc" id="L64" title="All 2 branches covered.">        if (cantidad &lt;= 0) throw new IllegalArgumentException(&quot;Cantidad debe ser positiva&quot;);</span>
+<span class="fc" id="L65">        stock += cantidad;</span>
+<span class="fc" id="L66">    }</span>
+
+    abstract public String mostrarDetalle();
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

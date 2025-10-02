@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GestorPedidos.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">libreria</a> &gt; <a href="index.source.html" class="el_package">com.emprendimiento.saintpatrick.pedidos</a> &gt; <span class="el_source">GestorPedidos.java</span></div><h1>GestorPedidos.java</h1><pre class="source lang-java linenums">package com.emprendimiento.saintpatrick.pedidos;
+
+import com.emprendimiento.saintpatrick.excepciones.CarritoVacio;
+import com.emprendimiento.saintpatrick.modelo.Producto;
+import com.emprendimiento.saintpatrick.notificaciones.Evento;
+import com.emprendimiento.saintpatrick.notificaciones.GestorEventos;
+import com.emprendimiento.saintpatrick.notificaciones.Observador;
+import com.emprendimiento.saintpatrick.usuario.Cliente;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
+<span class="fc" id="L14">public class GestorPedidos {</span>
+<span class="fc" id="L15">    private List&lt;Pedido&gt; pedidos = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L16">    private int contador = 1;</span>
+<span class="fc" id="L17">    private GestorEventos gestorEventos = new GestorEventos();</span>
+    public void registrarObservador(Observador o) {
+<span class="fc" id="L19">        gestorEventos.registrar(o);</span>
+<span class="fc" id="L20">    }</span>
+
+    public Pedido confirmarPedido(Cliente cliente) {
+<span class="fc" id="L23">        List&lt;Producto&gt; productos = cliente.getCarrito().getProductos();</span>
+<span class="fc bfc" id="L24" title="All 2 branches covered.">        if (productos.isEmpty()) {</span>
+<span class="fc" id="L25">            throw new CarritoVacio(&quot;No se puede confirmar pedido con carrito vacío.&quot;);</span>
+        }
+
+<span class="fc" id="L28">        BigDecimal total = cliente.getCarrito().getTotal();</span>
+<span class="fc" id="L29">        Pedido pedido = new Pedido(contador++, cliente, productos, total);</span>
+<span class="fc" id="L30">        pedidos.add(pedido);</span>
+
+<span class="fc" id="L32">        cliente.registrarCompra(pedido);</span>
+<span class="fc" id="L33">        cliente.getCarrito().vaciarCarrito();</span>
+
+<span class="fc" id="L35">        gestorEventos.emitir(Evento.PEDIDO_CONFIRMADO); // Notifica a los observadores suscritos</span>
+
+<span class="fc" id="L37">        return pedido;</span>
+    }
+
+    public List&lt;Pedido&gt; getPedidos() {
+<span class="nc" id="L41">        return pedidos;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

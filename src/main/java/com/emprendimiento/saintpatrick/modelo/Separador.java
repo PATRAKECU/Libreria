@@ -42,7 +42,7 @@ public class Separador extends Producto {
 
     @Override
     public String mostrarDetalle() {
-        return String.format(
+        return String.format(java.util.Locale.US,
                 "Separador: %s [%d]\nMaterial: %s\nDimensiones: %.1f cm\nPrecio: $%.2f\nStock: %d unidades",
                 getNombre(), getId(), material, dimensionesCm,
                 getPrecio().doubleValue(), getStock()

@@ -1,0 +1,17 @@
+com\emprendimiento\saintpatrick\modelo\CafeTest.class
+com\emprendimiento\saintpatrick\usuario\AdministradorTest.class
+com\emprendimiento\saintpatrick\carrito\CarritoTest.class
+com\emprendimiento\saintpatrick\fabrica\FabricaUsuarioTest.class
+com\emprendimiento\saintpatrick\modelo\LibroTest.class
+com\emprendimiento\saintpatrick\notificaciones\GestorEventosTest.class
+com\emprendimiento\saintpatrick\configuracion\ConfiguracionSistemaTest.class
+com\emprendimiento\saintpatrick\notificaciones\GestorEventosTest$ObservadorMock.class
+com\emprendimiento\saintpatrick\pedidos\PedidoTest.class
+com\emprendimiento\saintpatrick\modelo\SeparadorTest.class
+com\emprendimiento\saintpatrick\fabrica\FabricaProductoTest.class
+com\emprendimiento\saintpatrick\inventario\InventarioFisicoTest.class
+com\emprendimiento\saintpatrick\modelo\SoporteTest.class
+com\emprendimiento\saintpatrick\pago\PagoTarjetaTest.class
+com\emprendimiento\saintpatrick\pago\PagoPayPalTest.class
+com\emprendimiento\saintpatrick\usuario\ClienteTest.class
+com\emprendimiento\saintpatrick\pedidos\GestorPedidosTest.class

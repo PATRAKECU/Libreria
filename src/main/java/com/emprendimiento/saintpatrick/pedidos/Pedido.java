@@ -30,8 +30,8 @@ public class Pedido {
 
     @Override
     public String toString() {
-        return String.format("Pedido #%d\nCliente: %s\nTotal: $%.2f\nFecha: %s\nProductos: %d",
+        return String.format(java.util.Locale.US,
+                "Pedido #%d\nCliente: %s\nTotal: $%.2f\nFecha: %s\nProductos: %d",
                 id, cliente.getNombre(), total, fecha, productos.size());
     }
-
 }

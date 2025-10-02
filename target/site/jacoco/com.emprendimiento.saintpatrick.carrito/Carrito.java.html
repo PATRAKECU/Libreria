@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Carrito.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">libreria</a> &gt; <a href="index.source.html" class="el_package">com.emprendimiento.saintpatrick.carrito</a> &gt; <span class="el_source">Carrito.java</span></div><h1>Carrito.java</h1><pre class="source lang-java linenums">package com.emprendimiento.saintpatrick.carrito;
+
+//Importar las clases necesarias, incluyendo Producto
+import com.emprendimiento.saintpatrick.modelo.Producto;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
+//Ahora Carrito implementa su interfaz de gestión
+public class Carrito implements GestorCarrito {
+    private List&lt;Producto&gt; productos;
+    private BigDecimal total;
+
+    //Método constructor con atributos
+<span class="fc" id="L15">    public Carrito() {</span>
+<span class="fc" id="L16">        productos = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L17">        total = BigDecimal.ZERO;</span>
+<span class="fc" id="L18">    }</span>
+
+    //Método analizador para agregar artículos al carrito
+    @Override
+    public void agregarProducto(Producto p) {
+<span class="fc" id="L23">        productos.add(p);</span>
+<span class="fc" id="L24">        calcularTotal();</span>
+
+<span class="fc" id="L26">    }</span>
+
+    /** Sobrecarga: agrega por ID (busca en catálogo simulado) */
+    @Override
+    public void agregarProducto(int id, List&lt;Producto&gt; catalogo) {
+<span class="fc bfc" id="L31" title="All 2 branches covered.">        for (Producto p : catalogo) {</span>
+<span class="pc bpc" id="L32" title="1 of 2 branches missed.">            if (p.getId() == id) {</span>
+<span class="fc" id="L33">                agregarProducto(p);</span>
+<span class="fc" id="L34">                return;</span>
+            }
+<span class="nc" id="L36">        }</span>
+<span class="fc" id="L37">        throw new IllegalArgumentException(&quot;Producto con id &quot; + id + &quot; no encontrado&quot;);</span>
+    }
+
+
+    /** Sobrecarga: crea y agrega un producto genérico por nombre y precio */
+    @Override
+    public void agregarProducto(String nombre, BigDecimal precio) {
+<span class="fc bfc" id="L44" title="All 2 branches covered.">        if (precio.compareTo(BigDecimal.ZERO) &lt;= 0) {</span>
+<span class="fc" id="L45">            throw new IllegalArgumentException(&quot;El precio debe ser mayor a cero&quot;);</span>
+        }
+<span class="fc" id="L47">        Producto temporal = new Producto(0, nombre, &quot;&quot;, precio, 1) {</span>
+            @Override
+            public String mostrarDetalle() {
+<span class="nc" id="L50">                return String.format(&quot;%s – $%.2f&quot;, nombre, precio.doubleValue());</span>
+            }
+        };
+<span class="fc" id="L53">        agregarProducto(temporal);</span>
+<span class="fc" id="L54">    }</span>
+
+
+    //Método analizador para remover artículos del carrito
+    @Override
+    public void removerProducto(Producto p) {
+<span class="fc" id="L60">        productos.remove(p);</span>
+<span class="fc" id="L61">        calcularTotal();</span>
+<span class="fc" id="L62">    }</span>
+
+    //Método analizador para vaciar el carrito
+    @Override
+    public void vaciarCarrito() {
+<span class="fc" id="L67">        productos.clear();</span>
+<span class="fc" id="L68">        total = BigDecimal.ZERO;</span>
+<span class="fc" id="L69">    }</span>
+
+    //Método analizador para calcular el total del carrito que es llamado en otros métodos
+    @Override
+    public void calcularTotal() {
+<span class="fc" id="L74">        BigDecimal suma = BigDecimal.ZERO;</span>
+<span class="fc bfc" id="L75" title="All 2 branches covered.">        for (Producto p : productos) {</span>
+<span class="fc" id="L76">            suma = suma.add(p.getPrecio());</span>
+<span class="fc" id="L77">        }</span>
+<span class="fc" id="L78">        total = suma;</span>
+<span class="fc" id="L79">    }</span>
+
+    public boolean esVacio() {
+<span class="fc" id="L82">        return productos.isEmpty();</span>
+    }
+
+    public String generarResumen() {
+<span class="fc bfc" id="L86" title="All 2 branches covered.">        if (esVacio()) {</span>
+<span class="fc" id="L87">            return &quot;El carrito está vacío.&quot;;</span>
+        }
+
+<span class="fc" id="L90">        StringBuilder resumen = new StringBuilder(&quot;Resumen del carrito:\n&quot;);</span>
+<span class="fc bfc" id="L91" title="All 2 branches covered.">        for (Producto p : productos) {</span>
+<span class="fc" id="L92">            resumen.append(&quot;- &quot;)</span>
+<span class="fc" id="L93">                    .append(p.getNombre())</span>
+<span class="fc" id="L94">                    .append(&quot; ($&quot;)</span>
+<span class="fc" id="L95">                    .append(String.format(java.util.Locale.US, &quot;%.2f&quot;, p.getPrecio()))</span>
+<span class="fc" id="L96">                    .append(&quot;)\n&quot;);</span>
+<span class="fc" id="L97">        }</span>
+
+<span class="fc" id="L99">        resumen.append(String.format(java.util.Locale.US, &quot;Total: $%.2f&quot;, total));</span>
+<span class="fc" id="L100">        return resumen.toString();</span>
+    }
+
+    //Métodos consultores para obtener atributos específicos
+    @Override
+    public BigDecimal getTotal() {
+<span class="fc" id="L106">        return total;</span>
+    }
+
+    @Override
+    public List&lt;Producto&gt; getProductos() {
+<span class="fc" id="L111">        return new ArrayList&lt;&gt;(productos);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

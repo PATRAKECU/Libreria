@@ -54,7 +54,7 @@ public class Cafe extends Producto {
 
     @Override
     public String mostrarDetalle() {
-        return String.format(
+        return String.format(java.util.Locale.US,
                 "Café: %s [%d]\nOrigen: %s\nTipo: %s\nPeso: %.1f g\nPrecio: $%.2f\nStock: %d unidades",
                 getNombre(), getId(), origen, tipo, pesoGramos,
                 getPrecio().doubleValue(), getStock()

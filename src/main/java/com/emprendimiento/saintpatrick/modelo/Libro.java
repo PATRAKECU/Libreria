@@ -54,7 +54,7 @@ public class Libro extends Producto {
 
     @Override
     public String mostrarDetalle() {
-        return String.format(
+        return String.format(java.util.Locale.US,
                 "Libro: %s [%d]\nAutor: %s\nEditorial: %s\nEstado: %s\nPrecio: $%.2f\nStock: %d unidades",
                 getNombre(), getId(), autor, editorial, estado,
                 getPrecio().doubleValue(), getStock()

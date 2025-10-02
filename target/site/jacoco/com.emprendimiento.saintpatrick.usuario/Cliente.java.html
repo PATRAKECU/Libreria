@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Cliente.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">libreria</a> &gt; <a href="index.source.html" class="el_package">com.emprendimiento.saintpatrick.usuario</a> &gt; <span class="el_source">Cliente.java</span></div><h1>Cliente.java</h1><pre class="source lang-java linenums">package com.emprendimiento.saintpatrick.usuario;
+
+import com.emprendimiento.saintpatrick.carrito.Carrito;
+import com.emprendimiento.saintpatrick.pedidos.Pedido;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Cliente extends Usuario {
+    private List&lt;Pedido&gt; historialCompras;   // IDs de pedidos
+    private List&lt;String&gt; preferencias;        // Ej: géneros literarios
+    private Carrito carrito;
+
+    public Cliente(int id, String nombre, String correo, String contraseña) {
+<span class="fc" id="L15">        super(id, nombre, correo, contraseña);</span>
+<span class="fc" id="L16">        this.carrito = new Carrito();</span>
+<span class="fc" id="L17">        this.historialCompras = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L18">        this.preferencias = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L19">    }</span>
+
+    public List&lt;Pedido&gt; getHistorialCompras() {
+<span class="fc" id="L22">        return historialCompras;</span>
+    }
+
+    public List&lt;String&gt; getPreferencias() {
+<span class="fc" id="L26">        return preferencias;</span>
+    }
+
+    public Carrito getCarrito() {
+<span class="fc" id="L30">        return carrito;</span>
+    }
+
+    public void agregarPreferencia(String genero) {
+<span class="pc bpc" id="L34" title="1 of 4 branches missed.">        if (genero == null || genero.trim().isEmpty()) {</span>
+<span class="fc" id="L35">            throw new IllegalArgumentException(&quot;La preferencia no puede estar vacía&quot;);</span>
+        }
+<span class="fc" id="L37">        preferencias.add(genero.trim());</span>
+<span class="fc" id="L38">    }</span>
+
+    public void registrarCompra(Pedido pedido) {
+<span class="fc bfc" id="L41" title="All 2 branches covered.">        if (pedido == null) {</span>
+<span class="fc" id="L42">            throw new IllegalArgumentException(&quot;El pedido no puede ser nulo&quot;);</span>
+        }
+<span class="fc" id="L44">        historialCompras.add(pedido);</span>
+<span class="fc" id="L45">    }</span>
+
+    @Override
+    public String mostrarPerfil() {
+<span class="fc" id="L49">        return String.format(</span>
+                &quot;Cliente: %s [%d]\nCorreo: %s\nPedidos realizados: %d\nProductos en carrito: %d&quot;,
+<span class="fc" id="L51">                getNombre(), getId(), getCorreo(),</span>
+<span class="fc" id="L52">                historialCompras.size(),</span>
+<span class="fc" id="L53">                carrito.getProductos().size()</span>
+        );
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

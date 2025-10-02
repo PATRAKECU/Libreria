@@ -92,11 +92,11 @@ public class Carrito implements GestorCarrito {
             resumen.append("- ")
                     .append(p.getNombre())
                     .append(" ($")
-                    .append(p.getPrecio())
+                    .append(String.format(java.util.Locale.US, "%.2f", p.getPrecio()))
                     .append(")\n");
         }
 
-        resumen.append(String.format("Total: $%.2f", total));
+        resumen.append(String.format(java.util.Locale.US, "Total: $%.2f", total));
         return resumen.toString();
     }
 

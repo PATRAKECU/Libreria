@@ -1,8 +1,11 @@
 package com.emprendimiento.saintpatrick.inventario;
 
+import com.emprendimiento.saintpatrick.excepciones.InventarioInsuficiente;
 import com.emprendimiento.saintpatrick.excepciones.ProductoNoEncontrado;
 import com.emprendimiento.saintpatrick.modelo.Producto;
 import com.emprendimiento.saintpatrick.notificaciones.Evento;
+
+import java.util.Optional;
 
 public class InventarioFisico extends GestorInventario {
 
@@ -27,12 +30,20 @@ public class InventarioFisico extends GestorInventario {
             throw new ProductoNoEncontrado("Producto no encontrado en el inventario.");
         }
 
-        //Utiliza métodos de Producto
         if (cantidad > 0) {
             p.incrementarStock(cantidad);
         } else {
+            if (p.getStock() < Math.abs(cantidad)) {
+                throw new InventarioInsuficiente("Stock insuficiente para el producto: " + p.getNombre());
+            }
             p.disminuirStock(Math.abs(cantidad));
         }
+
         notificar(Evento.STOCK_ACTUALIZADO);
+    }
+    public Optional<Producto> buscarProductoPorId(int id) {
+        return inventario.stream()
+                .filter(p -> p.getId() == id)
+                .findFirst();
     }
 }
